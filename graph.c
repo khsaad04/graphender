@@ -1,4 +1,3 @@
-#define GRAPH_IMPLEMENTATION
 #include "graph.h"
 
 #include <raylib.h>
@@ -7,7 +6,7 @@
 
 Node *create_node(size_t v)
 {
-    Node *node = malloc(sizeof(Node));
+    Node *node = malloc(sizeof(*node));
     node->vertex = v;
     node->next = NULL;
     return node;
@@ -15,7 +14,7 @@ Node *create_node(size_t v)
 
 Graph *create_graph(size_t vs)
 {
-    Graph *graph = malloc(sizeof(Graph));
+    Graph *graph = malloc(sizeof(*graph));
     graph->vertices = vs;
     graph->adj_lists = malloc(vs * sizeof(Node *));
     for (size_t i = 0; i < vs; ++i) {
