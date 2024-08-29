@@ -1,7 +1,7 @@
-#include "graph.h"
-
 #include <raylib.h>
 #include <stdio.h>
+
+#include "graph.h"
 
 Node *create_node(size_t v)
 {
@@ -44,50 +44,18 @@ void print_graph(Graph *graph)
 
 Graph *init_graph(void)
 {
-    Graph *graph = create_graph(10);
-    add_edge(graph, 0, 1);
-    add_edge(graph, 1, 3);
-    add_edge(graph, 2, 5);
-    add_edge(graph, 3, 5);
-    add_edge(graph, 4, 5);
-    add_edge(graph, 5, 5);
-    add_edge(graph, 0, 1);
-    add_edge(graph, 1, 3);
-    add_edge(graph, 2, 5);
-    add_edge(graph, 3, 5);
-    add_edge(graph, 4, 5);
-    add_edge(graph, 5, 5);
+    size_t vs = 10;
+    Graph *graph = create_graph(vs);
+    for (size_t i = 0; i < vs; ++i) {
+        for (size_t j = 0; j < vs; ++j) {
+            add_edge(graph, i, j);
+        }
+    }
 
     print_graph(graph);
     return graph;
 }
-
-void draw_nodes(Graph *graph)
-{
-    for (size_t v = 0; v < graph->vertices; v++) {
-        struct node *temp = graph->adj_lists[v];
-        int font_size = 20;
-        if (temp != NULL) {
-            int pos_x = GetScreenWidth() / 2 - 40 * v;
-            int pos_y = GetScreenHeight() / 2 - 40 * v;
-            const char *text = TextFormat("%zu", v);
-            DrawCircle(pos_x, pos_y, 20, RAYWHITE);
-            DrawText(text, pos_x - MeasureText(text, font_size) / 2,
-                     pos_y - font_size / 2, font_size, BLACK);
-        }
-        while (temp) {
-            {
-                int pos_x = GetScreenWidth() / 2 + 40 * temp->vertex;
-                int pos_y = GetScreenHeight() / 2 + 40 * temp->vertex;
-                const char *text = TextFormat("%zu", temp->vertex);
-                DrawCircle(pos_x, pos_y, 20, RED);
-                DrawText(text, pos_x - MeasureText(text, font_size) / 2,
-                         pos_y - font_size / 2, font_size, BLACK);
-            }
-            temp = temp->next;
-        }
-    }
-}
+void draw_nodes(Graph *graph) { /*TODO */ }
 
 void init_raylib(Graph *graph)
 {

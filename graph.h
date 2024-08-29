@@ -1,5 +1,5 @@
-#ifndef GRAPH_H_
-#define GRAPH_H_
+#ifndef GRAPH_H
+#define GRAPH_H
 
 #include <stdlib.h>
 
@@ -15,7 +15,7 @@ typedef struct graph {
 
 Node *create_node(size_t);
 Graph *create_graph(size_t);
-void add_edge(Graph*, size_t, size_t);
-void print_graph(Graph*);
+void add_edge(Graph *, size_t, size_t);
+void print_graph(Graph *);
 
-#endif // GRAPH_H_
+#endif // GRAPH_H
