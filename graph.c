@@ -2,7 +2,6 @@
 
 #include <raylib.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 Node *create_node(size_t v)
 {
@@ -47,8 +46,17 @@ Graph *init_graph(void)
 {
     Graph *graph = create_graph(10);
     add_edge(graph, 0, 1);
-    add_edge(graph, 0, 3);
-    add_edge(graph, 0, 5);
+    add_edge(graph, 1, 3);
+    add_edge(graph, 2, 5);
+    add_edge(graph, 3, 5);
+    add_edge(graph, 4, 5);
+    add_edge(graph, 5, 5);
+    add_edge(graph, 0, 1);
+    add_edge(graph, 1, 3);
+    add_edge(graph, 2, 5);
+    add_edge(graph, 3, 5);
+    add_edge(graph, 4, 5);
+    add_edge(graph, 5, 5);
 
     print_graph(graph);
     return graph;
@@ -96,6 +104,6 @@ void init_raylib(Graph *graph)
 int main(void)
 {
     Graph *graph = init_graph();
-    init_raylib(graph);
+    /*init_raylib(graph);*/
     return 0;
 }
