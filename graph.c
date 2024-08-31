@@ -1,3 +1,4 @@
+#include <math.h>
 #include <raylib.h>
 #include <stdio.h>
 
@@ -46,16 +47,43 @@ Graph *init_graph(void)
 {
     size_t vs = 10;
     Graph *graph = create_graph(vs);
-    for (size_t i = 0; i < vs; ++i) {
-        for (size_t j = 0; j < vs; ++j) {
-            add_edge(graph, i, j);
-        }
-    }
+    add_edge(graph, 0, 1);
+    add_edge(graph, 0, 2);
+    add_edge(graph, 0, 3);
+    add_edge(graph, 0, 4);
+    add_edge(graph, 0, 5);
+    add_edge(graph, 0, 6);
+    add_edge(graph, 1, 4);
+    add_edge(graph, 1, 5);
+    add_edge(graph, 1, 6);
 
-    print_graph(graph);
     return graph;
 }
-void draw_nodes(Graph *graph) { /*TODO */ }
+
+void draw_nodes(Graph *graph)
+{
+    float angle = 360.0 / graph->vertices * PI / 180;
+    float len = GetScreenHeight() / 3.0;
+    float radius = len / graph->vertices;
+    float font_size = radius;
+
+    for (size_t v = 0; v < graph->vertices; v++) {
+        Vector2 pos = {GetScreenWidth() / 2.0 + len * sinf(angle * v),
+                       GetScreenHeight() / 2.0 - len * cosf(angle * v)};
+        const char *text = TextFormat("%zu", v);
+        struct node *temp = graph->adj_lists[v];
+        while (temp) {
+            Vector2 end_pos = {
+                GetScreenWidth() / 2.0 + len * sinf(angle * temp->vertex),
+                GetScreenHeight() / 2.0 - len * cosf(angle * temp->vertex)};
+            DrawLineV(pos, end_pos, RED);
+            temp = temp->next;
+        }
+        DrawCircleV(pos, len / graph->vertices, RAYWHITE);
+        DrawText(text, pos.x - MeasureText(text, font_size) / 2.0,
+                 pos.y - font_size / 2.0, font_size, BLACK);
+    }
+}
 
 void init_raylib(Graph *graph)
 {
@@ -72,6 +100,6 @@ void init_raylib(Graph *graph)
 int main(void)
 {
     Graph *graph = init_graph();
-    /*init_raylib(graph);*/
+    init_raylib(graph);
     return 0;
 }
